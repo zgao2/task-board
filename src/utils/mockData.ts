@@ -1,4 +1,5 @@
 import { Task, Agent, Comment, AgentStatus, WorkItem, AgentDependency, TaskAssignment, TaskTemplate } from '../types';
+import { realAgents, realWorkItems } from '../data/realTeam';
 
 // 生成唯一 ID
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -458,131 +459,45 @@ const workItems: Record<string, WorkItem> = {
 };
 
 // ============================================
-// Mock 数字员工数据（真实团队映射）
+// Mock 数字员工数据（使用 realTeam 的真实数据）
 // ============================================
 
-export const mockAgents: Agent[] = [
-  {
-    id: 'agent-001',
-    name: '李明',
-    role: '技术架构师',
-    avatar: '🏗️',
-    status: 'busy',
-    completedTasks: 156,
-    successRate: 98.2,
-    currentTaskId: 'task-001',
-    currentWork: workItems['task-001'],
-    workload: 4,
-    maxWorkload: 5,
-    skills: ['架构设计', '微服务', '系统规划', '技术评审'],
-    dependencies: [
-      {
-        agentId: 'agent-003',
-        agentName: '张伟',
-        type: 'collaborating',
-        taskId: 'task-001',
-        taskTitle: '电商平台微服务重构',
-        description: '协作完成服务开发',
-      },
-    ] as AgentDependency[],
-  },
-  {
-    id: 'agent-002',
-    name: '王芳',
-    role: '前端负责人',
-    avatar: '🎨',
-    status: 'busy',
-    completedTasks: 203,
-    successRate: 99.1,
-    currentTaskId: 'task-002',
-    currentWork: workItems['task-002'],
-    workload: 5,
-    maxWorkload: 5,
-    skills: ['React', 'Vue', 'TypeScript', 'UI 设计', '性能优化'],
-    dependencies: [
-      {
-        agentId: 'agent-003',
-        agentName: '张伟',
-        type: 'waiting_for',
-        taskId: 'task-002',
-        taskTitle: '双 11 活动页面开发',
-        description: '等待秒杀接口完成',
-      },
-    ] as AgentDependency[],
-  },
-  {
-    id: 'agent-003',
-    name: '张伟',
-    role: '后端工程师',
-    avatar: '⚙️',
-    status: 'busy',
-    completedTasks: 128,
-    successRate: 96.8,
-    currentTaskId: 'task-003',
-    currentWork: workItems['task-003'],
-    workload: 5,
-    maxWorkload: 5,
-    skills: ['Java', 'Spring Cloud', 'Redis', 'MySQL', '消息队列'],
-    dependencies: [
-      {
-        agentId: 'agent-001',
-        agentName: '李明',
-        type: 'waiting_for',
-        taskId: 'task-001',
-        taskTitle: '电商平台微服务重构',
-        description: '等待架构设计评审',
-      },
-    ] as AgentDependency[],
-  },
-  {
-    id: 'agent-004',
-    name: '刘洋',
-    role: '测试工程师',
-    avatar: '🧪',
-    status: 'online',
-    completedTasks: 189,
-    successRate: 99.5,
-    currentTaskId: null,
-    currentWork: null,
-    workload: 2,
-    maxWorkload: 5,
-    skills: ['自动化测试', '性能测试', '测试框架', 'CI/CD'],
-    dependencies: [] as AgentDependency[],
-  },
-  {
-    id: 'agent-005',
-    name: '陈静',
-    role: '运维工程师',
-    avatar: '🚀',
-    status: 'online',
-    completedTasks: 95,
-    successRate: 97.3,
-    currentTaskId: null,
-    currentWork: null,
-    workload: 1,
-    maxWorkload: 5,
-    skills: ['Docker', 'Kubernetes', 'CI/CD', '监控告警', '云服务'],
-    dependencies: [] as AgentDependency[],
-  },
+export const mockAgents: Agent[] = realAgents;
+
+// ============================================
+// Mock 任务数据（合并旧项目和营销助手项目）
+// ============================================
+
+export const mockTasks: Task[] = [
+  // 旧项目任务
+  ...Object.values(workItems).map(item => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    status: item.status,
+    priority: item.priority,
+    assigneeId: item.assigneeId,
+    assigneeName: item.assigneeName,
+    dueDate: item.dueDate,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    comments: item.comments,
+  })),
+  // 营销助手项目任务
+  ...Object.values(realWorkItems).filter(item => item.id.startsWith('task-marketing')).map(item => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    status: item.status,
+    priority: item.priority,
+    assigneeId: item.assigneeId,
+    assigneeName: item.assigneeName,
+    dueDate: item.dueDate,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    comments: item.comments,
+  })),
 ];
-
-// ============================================
-// Mock 任务数据（保持向后兼容）
-// ============================================
-
-export const mockTasks: Task[] = Object.values(workItems).map(item => ({
-  id: item.id,
-  title: item.title,
-  description: item.description,
-  status: item.status,
-  priority: item.priority,
-  assigneeId: item.assigneeId,
-  assigneeName: item.assigneeName,
-  dueDate: item.dueDate,
-  createdAt: item.createdAt,
-  updatedAt: item.updatedAt,
-  comments: item.comments,
-}));
 
 // ============================================
 // 辅助函数

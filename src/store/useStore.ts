@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { Task, Agent, TaskStatus, Comment, WorkItem, SubTask, TaskAssignment, TaskTemplate } from '../types';
 import { mockTasks, mockAgents, simulateRealTimeUpdates, getTaskTemplates } from '../utils/mockData';
+import { realWorkItems } from '../data/realTeam';
+import { workItems } from '../utils/mockData';
 
 interface AppState {
   // 数据
@@ -69,7 +71,10 @@ const updateAgentWorkload = (agents: Agent[], agentId: string, delta: number): A
 export const useStore = create<AppState>((set, get) => ({
   tasks: mockTasks,
   agents: mockAgents,
-  workItems: {},
+  workItems: {
+    ...workItems,  // 旧项目
+    ...realWorkItems,  // 营销助手项目
+  },
   templates: getTaskTemplates(),
   
   // 添加任务

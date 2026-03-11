@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Card, Tag, Avatar, Button, Timeline, Input, Space, Divider, Empty, Tooltip } from 'antd';
+import { Typography, Card, Tag, Avatar, Button, Timeline, Input, Divider, Empty, Tooltip } from 'antd';
 import {
   ArrowLeftOutlined,
   ClockCircleOutlined,
@@ -169,7 +169,7 @@ export const TaskDetail: React.FC = () => {
                   <Text strong className="!text-slate-700">工作目标</Text>
                 </div>
                 <Timeline
-                  items={workItem.workDetails.objectives.map((obj, index) => ({
+                  items={workItem.workDetails.objectives.map((obj) => ({
                     children: <Text className="!text-sm !text-slate-600">{obj}</Text>,
                     color: 'green',
                     dot: <div className="w-2 h-2 rounded-full bg-emerald-500" />,
@@ -184,7 +184,7 @@ export const TaskDetail: React.FC = () => {
                   <Text strong className="!text-slate-700">交付物</Text>
                 </div>
                 <Timeline
-                  items={workItem.workDetails.deliverables.map((item, index) => ({
+                  items={workItem.workDetails.deliverables.map((item) => ({
                     children: <Text className="!text-sm !text-slate-600">{item}</Text>,
                     color: 'blue',
                     dot: <div className="w-2 h-2 rounded-full bg-blue-500" />,

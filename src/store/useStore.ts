@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Task, Agent, TaskStatus, Comment, WorkItem, SubTask, TaskAssignment, TaskTemplate } from '../types';
-import { mockTasks, mockAgents, simulateRealTimeUpdates, getWorkItem, getAllWorkItems, getTaskTemplates } from '../utils/mockData';
+import { mockTasks, mockAgents, simulateRealTimeUpdates, getTaskTemplates } from '../utils/mockData';
 
 interface AppState {
   // 数据
@@ -74,9 +74,10 @@ export const useStore = create<AppState>((set, get) => ({
   
   // 添加任务
   addTask: (taskData) => {
+    const { id, ...restTaskData } = taskData as any;
     const newTask: Task = {
-      ...taskData,
-      id: taskData.id || generateId(),
+      ...restTaskData,
+      id: id || generateId(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       comments: [],

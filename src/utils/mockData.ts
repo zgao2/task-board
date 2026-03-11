@@ -1,4 +1,4 @@
-import { Task, Agent, Comment, AgentStatus, WorkItem, AgentDependency, SubTask, TaskAssignment, TaskTemplate } from '../types';
+import { Task, Agent, Comment, AgentStatus, WorkItem, AgentDependency, TaskAssignment, TaskTemplate } from '../types';
 
 // 生成唯一 ID
 const generateId = () => Math.random().toString(36).substr(2, 9);

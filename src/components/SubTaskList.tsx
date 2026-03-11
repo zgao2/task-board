@@ -9,7 +9,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
-import { SubTask, Agent, TaskTemplate } from '../types';
+import { SubTask, Agent } from '../types';
 import { useStore } from '../store/useStore';
 
 const { Text, Title } = Typography;
@@ -138,7 +138,7 @@ export const SubTaskList: React.FC<SubTaskListProps> = ({
 
       {/* 子任务列表 */}
       <div className="space-y-3">
-        {subTasks.map((subTask, index) => {
+        {subTasks.map((subTask) => {
           const type = typeConfig[subTask.type];
           const status = statusConfig[subTask.status];
           const assignee = agents.find(a => a.id === subTask.assigneeId);

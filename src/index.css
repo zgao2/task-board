@@ -1,3 +1,6 @@
+/* 字体系统 - 优先使用系统无衬线字体（必须在最前面） */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,9 +8,6 @@
 /* ========================================
    设计系统 - 基于 Apple/Stripe/Vercel 美学
    ======================================== */
-
-/* 字体系统 - 优先使用系统无衬线字体 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;

@@ -1,0 +1,3 @@
+# Ignore Wrangler auto-generated files
+wrangler.jsonc
+wrangler.toml

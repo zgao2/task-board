@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  task-board:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-board
+    ports:
+      - "${HOST_PORT:-3000}:80"
+    environment:
+      - PORT=${PORT:-80}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - task-board-network
+
+networks:
+  task-board-network:
+    driver: bridge
